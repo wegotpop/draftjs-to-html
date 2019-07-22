@@ -333,7 +333,11 @@ function getEntityMarkup(
     return `<a href="${entity.data.url}" target="${targetOption}">${text}</a>`;
   }
   if (entity.type === 'IMAGE') {
-    return `<img src="${entity.data.src}" alt="${entity.data.alt}" style="text-algin:${entity.data.alignment || 'center'};height: ${entity.data.height};width: ${entity.data.width}"/>`;
+    let { alignment } = entity.data;
+    if (!alignment || alignment === 'none') {
+      alignment = 'center';
+    }
+    return `<img src="${entity.data.src}" alt="${entity.data.alt}" style="text-align:${alignment};height: ${entity.data.height};width: ${entity.data.width}"/>`;
   }
   if (entity.type === 'EMBEDDED_LINK') {
     return `<iframe width="${entity.data.width}" height="${entity.data.height}" src="${entity.data.src}" frameBorder="0"></iframe>`;
